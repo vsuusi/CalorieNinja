@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CalorieNinja</string>
+    <string name="foodname">"ruoka-aine: "</string>
+    <string name="calories">"kalorit: "</string>
+    <string name="protein">"proteiini: "</string>
+    <string name="fat">"rasva: "</string>
+    <string name="carbohydrates">"hiilihydraatit: "</string>
+    <string name="serving_size">"annoskoko: "</string>
+    <string name="saturated_fat">"tyydyttymätön rasva: "</string>
+    <string name="sodium">"suola: "</string>
+    <string name="potassium">"kalium: "</string>
+    <string name="cholesterol">"kolesteroli: "</string>
+    <string name="fiber">"kuitu: "</string>
+    <string name="sugar">"sokeri: "</string>
+</resources>
