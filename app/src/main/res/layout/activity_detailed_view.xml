@@ -19,28 +19,32 @@
 
     <ImageView
         android:id="@+id/myImageView"
-        android:layout_width="413dp"
-        android:layout_height="549dp"
-        android:layout_marginTop="280dp"
+        android:layout_width="477dp"
+        android:layout_height="710dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="8dp"
+        android:alpha="0.5"
         android:src="@drawable/calorieninja"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewFood"
+        android:id="@+id/detailViewFood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
         android:text="@string/foodname"
-        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CalorieNinjaTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonBack" />
 
     <TextView
-        android:id="@+id/textViewSaturatedFat"
+        android:id="@+id/staticView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -48,11 +52,12 @@
         android:text="@string/saturated_fat"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFood" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCholesterol2" />
 
     <TextView
-        android:id="@+id/textViewFiber"
+        android:id="@+id/staticView4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -61,10 +66,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSaturatedFat" />
+        app:layout_constraintTop_toBottomOf="@+id/staticView3" />
 
     <TextView
-        android:id="@+id/textViewSugar"
+        android:id="@+id/staticView6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -74,7 +79,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFiber" />
+        app:layout_constraintTop_toBottomOf="@+id/staticView4" />
 
     <TextView
         android:id="@+id/textViewSodium"
@@ -88,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSugar" />
+        app:layout_constraintTop_toBottomOf="@+id/staticView6" />
 
     <TextView
         android:id="@+id/textViewCholesterol"
@@ -103,6 +108,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPotassium" />
+
+    <TextView
+        android:id="@+id/textViewCholesterol2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/serving_size"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailViewFood" />
 
     <TextView
         android:id="@+id/textViewPotassium"

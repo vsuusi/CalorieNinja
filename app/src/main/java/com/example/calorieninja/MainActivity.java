@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -32,18 +33,48 @@ public class MainActivity extends AppCompatActivity {
     /* ToDo:
     *   HIDE APIKEY
     *   KEKSI LAITERAJAPINTA/COMMON INTENT PALVELU
-    *   MERKKIJONOT JA RESURSSIT RESURSSITIEDOSTOIHIN
-    *   LOKALISAATIO
-    *   AKTIVITEETIN ELINKAARI(NÄYTÖN KÄÄNTÖ YMS)
-    *   VÄLITÄ DATA SPECIFICS AKTIVITEETTIIN
+    *   INSTASSIN SÄILYTYS MYÖS PALATTAESSA DETAILED AKTIVITEETISTA
     *   STYLING/FONTIT/LAYOUTIT,BUTTON TYYLIT
     *   MAKROJEN SEGMENTÖINTI
+    *   FONTTI SELKEEMMÄKS TAI KUVA HIMMEEMMÄKS
     * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState != null) {
+            Name = savedInstanceState.getString("name", "");
+            Calories = savedInstanceState.getDouble("calories", 0 );
+            CarbohydratesTotal = savedInstanceState.getDouble("carbohydrates_total_g", 0 );
+            FatTotal = savedInstanceState.getDouble("fat_total_g", 0 );
+            Protein = savedInstanceState.getDouble("protein_g", 0 );
+            drawMacrosToUi(Name, ServingSize, Calories, Protein, CarbohydratesTotal, FatTotal);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState( Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putString("name", Name);
+        bundle.putDouble("calories", Calories);
+        bundle.putDouble("carbohydrates_total_g", CarbohydratesTotal);
+        bundle.putDouble("fat_total_g", FatTotal);
+        bundle.putDouble("protein_g", Protein);
+    }
+    protected void onPause() {
+        super.onPause();
+        Log.d("tagi", "app paused");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("tagi", "app resumed");
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("tagi", "app destroyed");
     }
 
 
@@ -81,6 +112,20 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 
+    private void drawMacrosToUi(String Name, double servingSize, double cals, double protein, double carbs, double fat) {
+        TextView NameTextView = findViewById(R.id.textViewName);
+        TextView ServingSizeTextView = findViewById(R.id.textViewServing);
+        TextView CaloriesTextView = findViewById(R.id.textViewCals);
+        TextView ProteinTextView = findViewById(R.id.textViewProtein);
+        TextView CarbTextView = findViewById(R.id.textViewCarbs);
+        TextView FatTextView = findViewById(R.id.textViewFats);
+        NameTextView.setText(Name);
+        ServingSizeTextView.setText(Math.round(servingSize)+" g");
+        CaloriesTextView.setText(Math.round(cals)+" kcal");
+        ProteinTextView.setText(Math.round(protein)+" g");
+        FatTextView.setText(Math.round(fat)+" g");
+        CarbTextView.setText(Math.round(carbs)+" g");
+    }
     private void parseJSONData(String response) {
         try {
             JSONArray jArray = new JSONArray(response);
@@ -101,15 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 Cholesterol_mg = foodObject.getDouble("cholesterol_mg");
                 Fiber = foodObject.getDouble("fiber_g");
                 Sugar = foodObject.getDouble("sugar_g");
-
-                TextView CaloriesTextView = findViewById(R.id.textViewFood);
-                TextView ProteinTextView = findViewById(R.id.textViewSaturatedFat);
-                TextView CarbTextView = findViewById(R.id.textViewFiber);
-                TextView FatTextView = findViewById(R.id.textViewSugar);
-                CaloriesTextView.setText(getString(R.string.calories) + Calories);
-                ProteinTextView.setText(getString(R.string.protein) + Protein);
-                FatTextView.setText(getString(R.string.fat) + FatTotal);
-                CarbTextView.setText(getString(R.string.carbohydrates) + CarbohydratesTotal);
+                drawMacrosToUi(Name, ServingSize, Calories, Protein, CarbohydratesTotal, FatTotal);
             } else {
                 Toast.makeText(this, "No data found for the query", Toast.LENGTH_SHORT).show();
             }

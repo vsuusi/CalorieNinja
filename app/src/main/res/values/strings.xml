@@ -5,11 +5,11 @@
     <string name="protein">protein: </string>
     <string name="fat">fat: </string>
     <string name="carbohydrates">carbohydrates: </string>
-    <string name="serving_size">serving size(g): </string>
+    <string name="serving_size">"serving size: "</string>
     <string name="saturated_fat">saturated fat: </string>
-    <string name="sodium">sodium(mg):</string>
-    <string name="potassium">potassium(mg): </string>
-    <string name="cholesterol">cholesterol(mg): </string>
+    <string name="sodium">sodium:</string>
+    <string name="potassium">"potassium: "</string>
+    <string name="cholesterol">"cholesterol: "</string>
     <string name="fiber">fiber: </string>
     <string name="sugar">sugar: </string>
 </resources>
