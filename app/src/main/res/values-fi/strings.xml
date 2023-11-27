@@ -7,10 +7,20 @@
     <string name="fat">"rasva: "</string>
     <string name="carbohydrates">"hiilihydraatit: "</string>
     <string name="serving_size">"annoskoko: "</string>
-    <string name="saturated_fat">"tyydyttymätön rasva: "</string>
+    <string name="saturated_fat">"tyydyt.tön rasva: "</string>
     <string name="sodium">"suola: "</string>
     <string name="potassium">"kalium: "</string>
     <string name="cholesterol">"kolesteroli: "</string>
     <string name="fiber">"kuitu: "</string>
     <string name="sugar">"sokeri: "</string>
+    <string name="FindButton">Etsi</string>
+    <string name="DetailsButton">Näytä tarkemmat ravintoarvot</string>
+    <string name="BackButton">Takaisin</string>
+    <string name="searchHint">Syötä ruoka-aine</string>
+    <string name="findRecipeButton">Löydä resepti</string>
+    <string name="emptyFoodToast">No food to view!</string>
+    <string name="failedToOpenWebPageToast">Selainta ei voitu avata</string>
+    <string name="ErrorParsingJSONDataToast">Virhe JSON datan parsimisessa</string>
+    <string name="NoDataFoundForTheQueryToast">Hakusanoilla ei löytynyt osumaa</string>
+    <string name="ErrorFetchingDataToast">Virhe datan hakemisessa</string>
 </resources>

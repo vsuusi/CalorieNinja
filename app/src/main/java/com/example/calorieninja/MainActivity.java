@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -25,19 +24,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static String API_KEY = "RFb077W84SPo72J0hswEFg==0prKEcbGbT6oYeLC";
+    public String API_KEY = BuildConfig.apiKey;
     String Name;
     double ServingSize, Calories, Protein, FatTotal, CarbohydratesTotal, SaturatedFat, Sodium_mg,
             Potassium_mg, Cholesterol_mg, Fiber, Sugar;
 
-    /* ToDo:
-    *   HIDE APIKEY
-    *   KEKSI LAITERAJAPINTA/COMMON INTENT PALVELU
-    *   INSTASSIN SÄILYTYS MYÖS PALATTAESSA DETAILED AKTIVITEETISTA
-    *   STYLING/FONTIT/LAYOUTIT,BUTTON TYYLIT
-    *   MAKROJEN SEGMENTÖINTI
-    *   FONTTI SELKEEMMÄKS TAI KUVA HIMMEEMMÄKS
-    * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState( Bundle bundle){
+    protected void onSaveInstanceState( Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putString("name", Name);
         bundle.putDouble("calories", Calories);
@@ -62,21 +53,16 @@ public class MainActivity extends AppCompatActivity {
         bundle.putDouble("fat_total_g", FatTotal);
         bundle.putDouble("protein_g", Protein);
     }
-    protected void onPause() {
-        super.onPause();
-        Log.d("tagi", "app paused");
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("tagi", "app resumed");
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("tagi", "app destroyed");
-    }
 
+    protected void onRestoreInstanceState( Bundle savedInstanceState ) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Name = savedInstanceState.getString("name", "");
+        Calories = savedInstanceState.getDouble("calories", 0 );
+        CarbohydratesTotal = savedInstanceState.getDouble("carbohydrates_total_g", 0 );
+        FatTotal = savedInstanceState.getDouble("fat_total_g", 0 );
+        Protein = savedInstanceState.getDouble("protein_g", 0 );
+        drawMacrosToUi(Name, ServingSize, Calories, Protein, CarbohydratesTotal, FatTotal);
+    }
 
     public void hideKeyboard(View view) {
         if (view != null) {
@@ -99,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         parseJSONData(response);
                 },
                 error -> {
-                    Toast.makeText(this, "Error fetching data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.ErrorFetchingDataToast, Toast.LENGTH_SHORT).show();
                 }
         ) {
             @Override
@@ -110,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         Volley.newRequestQueue(this).add(request);
+        foodInput.setText("");
     }
 
     private void drawMacrosToUi(String Name, double servingSize, double cals, double protein, double carbs, double fat) {
@@ -148,23 +135,31 @@ public class MainActivity extends AppCompatActivity {
                 Sugar = foodObject.getDouble("sugar_g");
                 drawMacrosToUi(Name, ServingSize, Calories, Protein, CarbohydratesTotal, FatTotal);
             } else {
-                Toast.makeText(this, "No data found for the query", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.NoDataFoundForTheQueryToast, Toast.LENGTH_SHORT).show();
             }
         }
         catch (JSONException e){
-            Toast.makeText(this, "Error parsing JSON data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.ErrorParsingJSONDataToast, Toast.LENGTH_SHORT).show();
         }
     }
 
     public void ViewSpecifics(View view) {
-        Intent intent = new Intent(this, DetailedView.class);
-        intent.putExtra("FOOD", Name);
-        intent.putExtra("SATURATED_FAT", SaturatedFat);
-        intent.putExtra("SODIUM_MG", Sodium_mg);
-        intent.putExtra("POTASSIUM_MG", Potassium_mg);
-        intent.putExtra("CHOLESTEROL_MG", Cholesterol_mg);
-        intent.putExtra("FIBER", Fiber);
-        intent.putExtra("SUGAR", Sugar);
-        startActivity(intent);
+        EditText foodInput = findViewById(R.id.editTextFood);
+        String foodToFind = foodInput.getText().toString();
+        if (!Name.isEmpty()) {
+            Intent intent = new Intent(this, DetailedView.class);
+            intent.putExtra("FOOD", Name);
+            intent.putExtra("SERVING_SIZE", ServingSize);
+            intent.putExtra("SATURATED_FAT", SaturatedFat);
+            intent.putExtra("SODIUM_MG", Sodium_mg);
+            intent.putExtra("POTASSIUM_MG", Potassium_mg);
+            intent.putExtra("CHOLESTEROL_MG", Cholesterol_mg);
+            intent.putExtra("FIBER", Fiber);
+            intent.putExtra("SUGAR", Sugar);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this,R.string.emptyFoodToast, Toast.LENGTH_SHORT).show();
+        }
     }
 }

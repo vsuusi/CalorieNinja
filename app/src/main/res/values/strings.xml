@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name" translatable="false">CalorieNinja</string>
+
+    <string name="FindButton">Find</string>
+    <string name="DetailsButton">View specific values</string>
+    <string name="BackButton">Back</string>
+    <string name="searchHint">Search food for its nutrients</string>
+
+    <string name="emptyFoodToast">No food to view!</string>
+    <string name="failedToOpenWebPageToast">Cannot open webpage</string>
+    <string name="ErrorParsingJSONDataToast">Error parsing JSON data</string>
+    <string name="NoDataFoundForTheQueryToast">No data found for the query</string>
+    <string name="ErrorFetchingDataToast">Error fetching data</string>
+
     <string name="foodname">food: </string>
     <string name="calories">calories: </string>
     <string name="protein">protein: </string>
@@ -12,4 +24,5 @@
     <string name="cholesterol">"cholesterol: "</string>
     <string name="fiber">fiber: </string>
     <string name="sugar">sugar: </string>
+    <string name="findRecipeButton">Find recipe</string>
 </resources>
